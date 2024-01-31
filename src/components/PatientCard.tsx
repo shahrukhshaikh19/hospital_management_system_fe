@@ -10,22 +10,35 @@ interface Patient {
   age: number;
   address: string;
   avatar: Avatar; // Use the Avatar type alias
+  meetDoctor:number;
+  onMeetDoctor:  () => void;
 }
 
-const PatientCard: React.FC<Patient> = ({ name, id, age, address, avatar }) => {
+const PatientCard: React.FC<Patient> = ({ name, id, age, address, avatar,meetDoctor,onMeetDoctor }) => {
+  
+  
+
    return (
-    <div className="w-full bg-[#0369a1] rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
-      <div className="flex items-center">
+    <div className="w-full bg-[#231E39] rounded-lg shadow-md p-6 hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">
+      <div className="flex flex-col items-center">
         <img
           src={`https://robohash.org/${id}?200x200`}
           alt="Patient Avatar"
-          className="w-12 h-12 rounded-full mr-4 border-2 border-black"
+          className="w-24 h-24 rounded-full mb-4 border-2 border-[#03BFCB]"
         />
         <div>
-          <h2 className="text-lg font-bold text-white">{name}</h2>
+          <h2 className="text-lg font-bold text-white">Name: {name}</h2>
           <p className="text-gray-200">ID: {id}</p>
           <p className="text-gray-200">Age: {age}</p>
           <p className="text-gray-200">Address: {address}</p>
+          {meetDoctor == 0 && (
+            <button
+              className="mt-4 bg-white text-blue-700 px-4 py-2 rounded-md hover:bg-blue-200"
+              onClick={()=>onMeetDoctor(id)}
+            >
+              Meet Doctor
+            </button>
+          )}
         </div>
       </div>
     </div>
