@@ -24,12 +24,26 @@ export default function Home() {
     fetchPatientsData();
   },[]);
 
-
+const onMeetDoctor= async(id)=>{
+  console.log(id)
+  const postData = {id:id};
+  const response = await fetch(apiUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      // Add any other headers required by your API
+    },
+    body: JSON.stringify(postData),
+  })
+  const updatetedData = await response.json();
+  setPatientssData(updatetedData.patients)
+  console.log(updatetedData);
+};
   
   return (
-    <div className="container mx-auto py-8 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {patientsData?.map(patient => (
-        <PatientCard key={patient.id} {...patient} />
+    <div className="container mx-auto p-6 grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {patientsData?.map((patient,i) => (
+        <PatientCard key={patient.id} {...patient} meetDoctor={i} onMeetDoctor={onMeetDoctor} />
       ))}
     </div>
   );
